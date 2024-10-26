@@ -131,7 +131,7 @@
         }
 
         /* Button Styling */
-        .mutagen-button {
+        .mutagen-button, .power-attack-button {
             margin-top: 0.5rem;
             margin-right: 0.5rem;
             background-color: #4caf50; /* Green */
@@ -143,11 +143,11 @@
             transition: background-color 0.3s;
         }
 
-        .mutagen-button:hover {
+        .mutagen-button:hover, .power-attack-button:hover {
             background-color: #45a049;
         }
 
-        .mutagen-button.active {
+        .mutagen-button.active, .power-attack-button.active {
             background-color: #d32f2f; /* Red when active */
         }
 
@@ -174,7 +174,7 @@
                 font-size: 0.875rem; /* Adjust table font size for smaller screens */
             }
 
-            .mutagen-button {
+            .mutagen-button, .power-attack-button {
                 margin-top: 0.5rem;
                 margin-right: 0.25rem;
                 padding: 0.5rem;
@@ -212,9 +212,6 @@
                         <a href="#def-off" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
                             Defense & Offense
                         </a>
-                        <a href="#equipment" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white mr-4">
-                            Equipment
-                        </a>
                         <a href="#class-features" class="block mt-4 lg:inline-block lg:mt-0 text-yellow-200 hover:text-white">
                             Class Features
                         </a>
@@ -234,20 +231,21 @@
                 <h2>Defense & Offense</h2>
                 <div class="parchment-cell">
                     <strong>Defense:</strong><br>
-                    AC: <span id="ac">14</span> (Touch <span id="touch">13</span>, Flat-Footed <span id="flat-footed">13</span>)<br>
+                    AC: <span id="ac">15</span> (Touch <span id="touch">15</span>, Flat-Footed <span id="flat-footed">14</span>)<br>
                     HP: <input type="number" value="62" class="w-20 p-1 border border-yellow-300 rounded text-center bg-yellow-100 inline-block" /><br>
                     Fort: +8<br>
-                    Ref: +5<br>
-                    Will: +3<br>
+                    Ref: +6<br>
+                    Will: +5<br>
                 </div>
                 <div class="parchment-cell">
                     <strong>Offense:</strong><br>
                     Speed: 30 ft.<br>
-                    Melee: Unarmed Strike +8 (4d8+10)<br>
-                    Flurry of Blows: Unarmed Strike +8/+8 (4d8+10)<br>
+                    Melee: Unarmed Strike <span id="melee-attack">+11</span> (<span id="damage">1d8+6</span>)<br>
+                    Flurry of Blows: Unarmed Strike <span id="flurry-attack">+11/+11</span> (<span id="damage">1d8+6</span>)<br>
+                    Ranged: Kinetic Blast +8 (2d6+3)<br>
                     <strong>Special Attacks:</strong><br>
-                    Flurry of Blows, Kinetic Fist (accept 2 burn to increase damage dice to d8s), Power Attack (-1 attack, +3 damage)<br>
-                    <br>
+                    Flurry of Blows<br>
+                    <button class="power-attack-button" onclick="togglePowerAttack()">Power Attack (Toggle)</button>
                 </div>
             </section>
 
@@ -256,11 +254,11 @@
                 <h2>Statistics</h2>
                 <div class="parchment-cell">
                     <strong>Attributes:</strong><br>
-                    Str <span id="str">16</span> (+3), Dex <span id="dex">12</span> (+1), Con <span id="con">19</span> (+4), Int <span id="int">8</span> (-1), Wis <span id="wis">14</span> (+2), Cha <span id="cha">8</span> (-1)
+                    Str <span id="str">18</span> (+4), Dex <span id="dex">12</span> (+1), Con <span id="con">17</span> (+3), Int <span id="int">8</span> (-1), Wis <span id="wis">16</span> (+3), Cha <span id="cha">8</span> (-1)
                 </div>
                 <div class="parchment-cell">
                     <strong>Combat:</strong><br>
-                    Base Atk +5; CMB +8; CMD 21
+                    Base Atk +5; CMB +9; CMD 23
                 </div>
                 <div class="parchment-cell">
                     <strong>Feats:</strong>
@@ -275,9 +273,9 @@
                 <div class="parchment-cell">
                     <strong>Skills:</strong>
                     <ul class="list-disc list-inside mt-2">
-                        <li>Acrobatics +9 (5 ranks)</li>
-                        <li>Perception +7 (5 ranks)</li>
-                        <li>Stealth +6 (5 ranks)</li>
+                        <li>Acrobatics +9 (5 ranks, +1 Dex, +3 class skill)</li>
+                        <li>Perception +11 (5 ranks, +3 Wis, +3 class skill)</li>
+                        <li>Stealth +9 (5 ranks, +1 Dex, +3 class skill)</li>
                         <!-- Include other skills as applicable -->
                     </ul>
                 </div>
@@ -297,13 +295,10 @@
                     <strong>Elemental Focus (Earth):</strong> Basic Geokinesis
                 </div>
                 <div class="parchment-cell">
-                    <strong>Burn:</strong> Maximum 7 (3 + Con modifier). Can accept up to 2 burn per round.
+                    <strong>Burn:</strong> Maximum 6 (3 + Con modifier). Can accept up to 2 burn per round.
                 </div>
                 <div class="parchment-cell">
-                    <strong>Elemental Overflow:</strong> +1 bonus to attack and +2 to damage rolls with kinetic blasts when burn is at least 1.
-                </div>
-                <div class="parchment-cell">
-                    <strong>AC Bonus (Ex):</strong> +2 (Wisdom bonus) to AC and CMD when unarmored.
+                    <strong>AC Bonus (Ex):</strong> +3 (Wisdom bonus) to AC and CMD when unarmored.
                 </div>
                 <div class="parchment-cell">
                     <strong>Gather Power (Su):</strong> Reduce burn cost by 1 point as a move action.
@@ -317,6 +312,9 @@
                     </ul>
                 </div>
                 <div class="parchment-cell">
+                    <strong>Kinetic Blast:</strong> Can use Kinetic Blast by accepting 1 point of burn.
+                </div>
+                <div class="parchment-cell">
                     <strong>Utility Wild Talents:</strong>
                     <ul class="list-disc list-inside mt-2">
                         <li>Tremorsense</li>
@@ -325,7 +323,7 @@
                     </ul>
                 </div>
 
-                <!-- New Class Progression Table -->
+                <!-- Class Progression Table -->
                 <div class="parchment-cell overflow-x-auto">
                     <h3 class="text-xl font-bold mb-4">Class Progression</h3>
                     <table class="min-w-full bg-white border border-yellow-300">
@@ -348,7 +346,7 @@
                                 <td class="table-cell">+2</td>
                                 <td class="table-cell">+0</td>
                                 <td class="table-special">
-                                    Burn, Elemental Focus, Gather Power, Infusion, Kinetic Blast, Flurry of Blows, Improved Unarmed Strike
+                                    Burn, Elemental Focus, Gather Power, Infusion, Kinetic Fist, Flurry of Blows, Improved Unarmed Strike
                                 </td>
                             </tr>
                             <!-- Level 2 -->
@@ -359,7 +357,7 @@
                                 <td class="table-cell">+3</td>
                                 <td class="table-cell">+0</td>
                                 <td class="table-special">
-                                    AC Bonus (+2), Utility Wild Talent
+                                    AC Bonus (+3), Utility Wild Talent
                                 </td>
                             </tr>
                             <!-- Level 3 -->
@@ -370,7 +368,7 @@
                                 <td class="table-cell">+3</td>
                                 <td class="table-cell">+1</td>
                                 <td class="table-special">
-                                    Elemental Overflow +1, Infusion
+                                    Infusion
                                 </td>
                             </tr>
                             <!-- Level 4 -->
@@ -398,19 +396,14 @@
                         </tbody>
                     </table>
                 </div>
-            </section>
-
-            <!-- Equipment -->
-            <section id="equipment">
-                <h2>Equipment</h2>
                 <div class="parchment-cell">
-                    <ul class="list-disc list-inside space-y-2">
-                        <li>Masterwork Dagger</li>
-                        <li>Cloak of Resistance +1</li>
-                        <li>Belt of Mighty Constitution +2</li>
-                        <li>Amulet of Natural Armor +1</li>
-                        <li>Adventurer's Kit</li>
-                        <li>34 gp</li>
+                    <strong>Automatic Bonus Progression:</strong>
+                    <ul class="list-disc list-inside mt-2">
+                        <li>Resistance +1 (1st level)</li>
+                        <li>Armor Attunement +1, Weapon Attunement +1 (2nd level)</li>
+                        <li>Deflection +1 (3rd level)</li>
+                        <li>Mental Prowess +2 (Wisdom) (4th level)</li>
+                        <li>Physical Prowess +2 (Strength) (5th level)</li>
                     </ul>
                 </div>
             </section>
@@ -452,6 +445,28 @@
                     const header = document.getElementById(id).querySelector('h2');
                     header.setAttribute('aria-expanded', !isHidden);
                 });
+            }
+
+            // Power Attack Toggle
+            window.togglePowerAttack = function() {
+                const button = document.querySelector('.power-attack-button');
+                const meleeAttack = document.getElementById('melee-attack');
+                const flurryAttack = document.getElementById('flurry-attack');
+                const damage = document.getElementById('damage');
+
+                if (button.classList.contains('active')) {
+                    // Remove Power Attack
+                    meleeAttack.textContent = '+11';
+                    flurryAttack.textContent = '+11/+11';
+                    damage.textContent = '1d8+6';
+                    button.classList.remove('active');
+                } else {
+                    // Apply Power Attack
+                    meleeAttack.textContent = '+9';
+                    flurryAttack.textContent = '+9/+9';
+                    damage.textContent = '1d8+10';
+                    button.classList.add('active');
+                }
             }
         });
     </script>
